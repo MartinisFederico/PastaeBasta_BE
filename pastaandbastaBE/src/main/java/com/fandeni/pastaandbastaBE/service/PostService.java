@@ -17,7 +17,7 @@ public class PostService {
 	private PostCrudRepository postCrudRepository;
 
 	public List<Post> getDashboard(){
-		return postCrudRepository.getDashboard();
+		return postCrudRepository.getDashboardOrderByDataLastUpdate();
 	}
 	//ricerca ordinata per data
 	//ricerca ordinata per numero di like  /  dislike
