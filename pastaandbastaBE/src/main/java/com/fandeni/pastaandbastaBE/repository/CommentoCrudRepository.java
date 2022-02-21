@@ -13,7 +13,7 @@ public interface CommentoCrudRepository extends CrudRepository<Commento, Integer
 	
 	Optional<Commento> findByText(String text); 
 	Optional<Commento> findById(Integer id); 
-	@Query("SELECT c FROM Commento JOIN Post p WHERE p.id = ?1")
+	@Query("SELECT c FROM Commento c JOIN Post p WHERE p.id = ?1")
 	List<Commento> findByPost(Integer id); 
 
 }
