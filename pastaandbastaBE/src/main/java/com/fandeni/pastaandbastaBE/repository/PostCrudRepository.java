@@ -22,5 +22,6 @@ public interface PostCrudRepository extends CrudRepository<Post, Integer> {
 	List<Post> findByHashDesc(String hashDesc); 
 	@Query("SELECT p FROM Post p JOIN p.hashtags h WHERE h.id = ?1")
 	List<Post> findByHashId(Integer hashId);
-	//commen
+	@Query("SELECT p FROM Post p ORDER BY p.dataLastUpdate DESC")
+	List<Post> getDashboard();
 }

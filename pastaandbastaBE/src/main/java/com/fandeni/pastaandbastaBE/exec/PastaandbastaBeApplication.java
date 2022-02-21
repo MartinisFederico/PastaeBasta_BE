@@ -11,17 +11,11 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(basePackages =  {"com.fandeni.pastaandbastaBE.repository"})
 @EntityScan(basePackages = {"com.fandeni.pastaandbastaBE.model"})
 public class PastaandbastaBeApplication {
-
 	public static void main(String[] args) {
-		
 		try {
 			ConfigurableApplicationContext app = SpringApplication.run(PastaandbastaBeApplication.class, args);;
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
-
 }

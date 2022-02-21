@@ -1,6 +1,6 @@
 package com.fandeni.pastaandbastaBE.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +21,8 @@ public class Post {
 	private Integer id; 
 	private String descrizione; 
 	private String didascalia; 
-	private LocalDate dataPublish; 
+	private LocalDateTime dataPublish;
+	private LocalDateTime dataLastUpdate;
 	@ManyToMany(mappedBy = "like")
 	private List<Utente> likers; 
 	@ManyToMany(mappedBy = "unlike")
@@ -39,7 +40,8 @@ public class Post {
 	private List<Hashtag> hashtags; 
 	
 	
-	public Post(Integer id, String descrizione, String didascalia,  LocalDate dataPublish, Utente creator) {
+	public Post(Integer id, String descrizione, String didascalia, LocalDateTime dataPublish,
+				LocalDateTime dataLastUpdate, Utente creator) {
 		super();
 		this.id = id;
 		this.descrizione = descrizione;
@@ -49,11 +51,13 @@ public class Post {
 		this.unlikers = new ArrayList<>();
 		this.comments = new ArrayList<>();
 		this.creator = creator;
+		this.dataLastUpdate = dataLastUpdate;
 	} 
 	
 	public Post() {}
 	
-	public Post(String descrizione, String didascalia, LocalDate dataPublish, Utente creator) {
+	public Post(String descrizione, String didascalia, LocalDateTime dataPublish,
+				LocalDateTime dataLastUpdate, Utente creator) {
 		this.descrizione = descrizione;
 		this.didascalia = didascalia; 
 		this.dataPublish = dataPublish;
@@ -61,6 +65,7 @@ public class Post {
 		this.unlikers = new ArrayList<>();
 		this.comments = new ArrayList<>();
 		this.creator = creator;
+		this.dataLastUpdate = dataLastUpdate;
 	}
 
 	public Integer getId() {
@@ -83,11 +88,11 @@ public class Post {
 		this.didascalia = didascalia;
 	}
 
-	public LocalDate getDataPublish() {
+	public LocalDateTime getDataPublish() {
 		return dataPublish;
 	}
 
-	public void setDataPublish(LocalDate dataPublish) {
+	public void setDataPublish(LocalDateTime dataPublish) {
 		this.dataPublish = dataPublish;
 	}
 
@@ -137,6 +142,14 @@ public class Post {
 
 	public void setCreator(Utente creator) {
 		this.creator = creator;
+	}
+
+	public LocalDateTime getDataLastUpdate() {
+		return dataLastUpdate;
+	}
+
+	public void setDataLastUpdate(LocalDateTime dataLastUpdate) {
+		this.dataLastUpdate = dataLastUpdate;
 	}
 
 	@Override
