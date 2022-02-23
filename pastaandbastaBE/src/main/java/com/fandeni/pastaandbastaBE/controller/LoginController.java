@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/")
 @CrossOrigin(origins = "*")
 public class LoginController{
     @Autowired
@@ -26,12 +26,12 @@ public class LoginController{
     @Autowired
     private PostService postService;
 
-    @PostMapping(path = "/byUsername", consumes = "application/json")
+    @PostMapping(path = "/login/byUsername", consumes = "application/json")
     public ResponseEntity<List<PostVisualizationDTO>> checkLogin(@RequestBody AuthDTO info){
         System.out.println("Performing login...");
         try {
             if(utenteService.checkLoginUsername(info.getUsername(), info.getPassword())){
-                return getListResponseEntity();
+                return getListResponseEntity(info.getUsername());
             }else
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } catch (NoUserFoundExceptioin e) {
@@ -43,11 +43,11 @@ public class LoginController{
         }
     }
 
-    @PostMapping("/byEmail")
+    @PostMapping("/login/byEmail")
     public ResponseEntity<List<PostVisualizationDTO>> checkLoginEmail(@RequestBody AuthDTO info){
         try {
             if(utenteService.checkLoginEmail(info.getUsername(), info.getPassword())){
-                return getListResponseEntity();
+                return getListResponseEntity(info.getUsername());
             }else
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } catch (NoUserFoundExceptioin e) {
@@ -59,8 +59,8 @@ public class LoginController{
         }
     }
 
-    private ResponseEntity<List<PostVisualizationDTO>> getListResponseEntity() {
-        List<Post> dashboard = postService.getDashboard();
+    private ResponseEntity<List<PostVisualizationDTO>> getListResponseEntity(String username) {
+        List<Post> dashboard = postService.getDashboard(username);
         if(!dashboard.isEmpty()){
             List<PostVisualizationDTO> dashboardDTO = new ArrayList<>();
             for(Post p: dashboard){
@@ -71,7 +71,7 @@ public class LoginController{
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/registation")
+    @PostMapping("/registration")
     public ResponseEntity<Boolean> register(@RequestBody Utente utente){
         try{
             if(utenteService.checkRegistration(utente)){

@@ -29,7 +29,7 @@ public class Hashtag {
 		this.post = new ArrayList<>();
 	}
 	
-	public Hashtag() {}
+	public Hashtag(String s) {}
 	
 	public Hashtag(String descrizione, List<Post> post) {
 		

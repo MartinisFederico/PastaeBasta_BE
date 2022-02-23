@@ -2,7 +2,6 @@ package com.fandeni.pastaandbastaBE.service;
 
 import com.fandeni.pastaandbastaBE.customException.NoUserFoundExceptioin;
 import com.fandeni.pastaandbastaBE.customException.UserAlreadyExistsException;
-import com.fandeni.pastaandbastaBE.model.Ruolo;
 import com.fandeni.pastaandbastaBE.model.Utente;
 import com.fandeni.pastaandbastaBE.repository.RuoloCrudRepository;
 import com.fandeni.pastaandbastaBE.repository.UtenteCrudRepository;
@@ -43,6 +42,7 @@ public class UtenteService {
     }
 
     public boolean checkRegistration(Utente utente) throws UserAlreadyExistsException {
+        if(utente.getUsername().equals("admin"))
         if(utenteCrudRepository.findByUsername(utente.getUsername()).isPresent()){
             throw new UserAlreadyExistsException("Username is already taken!");
         }else if(utenteCrudRepository.findByEmail(utente.getEmail()).isPresent()){

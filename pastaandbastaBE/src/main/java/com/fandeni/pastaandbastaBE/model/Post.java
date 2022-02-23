@@ -38,7 +38,7 @@ public class Post {
 	private List<Categoria> categorie; 
 	@ManyToMany(mappedBy = "post")
 	private List<Hashtag> hashtags; 
-	
+	private boolean visible;
 	
 	public Post(Integer id, String descrizione, String didascalia, LocalDateTime dataPublish,
 				LocalDateTime dataLastUpdate, Utente creator) {
@@ -52,6 +52,7 @@ public class Post {
 		this.comments = new ArrayList<>();
 		this.creator = creator;
 		this.dataLastUpdate = dataLastUpdate;
+		visible = true;
 	} 
 	
 	public Post() {}
@@ -66,6 +67,7 @@ public class Post {
 		this.comments = new ArrayList<>();
 		this.creator = creator;
 		this.dataLastUpdate = dataLastUpdate;
+		visible = true;
 	}
 
 	public Integer getId() {
@@ -166,6 +168,14 @@ public class Post {
 
 	public void setHashtags(List<Hashtag> hashtags) {
 		this.hashtags = hashtags;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
 	}
 
 	@Override

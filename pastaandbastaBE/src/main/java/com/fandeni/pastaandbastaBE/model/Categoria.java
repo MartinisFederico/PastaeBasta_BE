@@ -36,7 +36,11 @@ public class Categoria {
 		this.post = new ArrayList<>();
 	}
 
-	public Integer getId() {
+    public Categoria(String s) {
+		descrizione = s;
+    }
+
+    public Integer getId() {
 		return id;
 	}
 

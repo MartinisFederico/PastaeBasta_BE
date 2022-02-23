@@ -21,9 +21,11 @@ public interface PostCrudRepository extends CrudRepository<Post, Integer> {
 	@Query("SELECT p FROM Post p JOIN p.hashtags h WHERE h.descrizione = ?1")
 	List<Post> findByHashDesc(String hashDesc); 
 	@Query("SELECT p FROM Post p JOIN p.hashtags h WHERE h.id = ?1")
-	List<Post> findByHashId(Integer hashId);
-	@Query("SELECT p FROM Post p ORDER BY p.dataLastUpdate DESC")
-	List<Post> getDashboardOrderByDataLastUpdate();
+	List<Post> findByHashtagsId(Integer hashId);
+	@Query("SELECT p FROM Post p WHERE p.creator.username <> ?1 AND p.visible=true ORDER BY p.dataLastUpdate DESC")
+	List<Post> getDashboardOrderByDataLastUpdateUsername(String username);
+	@Query("SELECT p FROM Post p WHERE p.creator.email <> ?1 AND p.visible=true ORDER BY p.dataLastUpdate DESC")
+	List<Post> getDashboardOrderByDataLastUpdateEmail(String email);
 	@Query("SELECT p FROM Post p ORDER BY p.numLike DESC")
 	List<Post> getDashboardOrderByNumLike();
 }

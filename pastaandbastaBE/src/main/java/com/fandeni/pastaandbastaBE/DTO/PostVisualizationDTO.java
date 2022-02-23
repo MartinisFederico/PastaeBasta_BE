@@ -6,6 +6,7 @@ import com.fandeni.pastaandbastaBE.model.Hashtag;
 import com.fandeni.pastaandbastaBE.model.Post;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class PostVisualizationDTO {
@@ -19,8 +20,8 @@ public class PostVisualizationDTO {
     private Integer numLike;
     private Integer numUnlike;
     private List<CommentDTO> comments;
-    private List<Categoria> categories;
-    private List<Hashtag> hashtags;
+    private List<String> categories;
+    private List<String> hashtags;
 
     public PostVisualizationDTO(Post post){
         usernameCreator = post.getCreator().getUsername();
@@ -32,8 +33,15 @@ public class PostVisualizationDTO {
         dataLastUpdate = post.getDataLastUpdate();
         numLike = post.getNumLike();
         numUnlike = post.getNumUnlike();
-        categories = post.getCategorie();
-        hashtags = post.getHashtags();
+        categories = new ArrayList<>();
+        hashtags = new ArrayList<>();
+        comments = new ArrayList<>();
+        for(Categoria c: post.getCategorie()){
+            categories.add(c.getDescrizione());
+        }
+        for(Hashtag h: post.getHashtags()){
+            hashtags.add(h.getDescrizione());
+        }
         for (Commento c: post.getComments()) {
             comments.add(new CommentDTO(c.getText(), c.getAuthor().getUsername(), c.getAuthor().getDidascalia(), c.getData()));
         }
@@ -119,20 +127,24 @@ public class PostVisualizationDTO {
         this.comments = comments;
     }
 
-    public List<Categoria> getCategories() {
+    public List<String> getCategories() {
         return categories;
     }
 
     public void setCategories(List<Categoria> categories) {
-        this.categories = categories;
+        for(Categoria c: categories){
+            this.categories.add(c.getDescrizione());
+        }
     }
 
-    public List<Hashtag> getHashtags() {
+    public List<String> getHashtags() {
         return hashtags;
     }
 
     public void setHashtags(List<Hashtag> hashtags) {
-        this.hashtags = hashtags;
+        for(Hashtag h: hashtags){
+            this.hashtags.add(h.getDescrizione());
+        }
     }
 
     @Override
