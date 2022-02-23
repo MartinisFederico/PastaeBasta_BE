@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
 
 @Entity
 public class Commento {
@@ -20,21 +21,24 @@ public class Commento {
 	@ManyToOne
 	@JoinColumn(name="id_post")
 	private Post post;
-	
-	public Commento(Integer id, String text, Utente author, Post post) {
+	private LocalDateTime data;
+
+	public Commento(Integer id, String text, Utente author, LocalDateTime data, Post post) {
 		super();
 		this.id = id;
 		this.text = text;
 		this.author = author;
+		this.data = data;
 		this.post = post;
 	} 
 	
 	public Commento() {}
 	
-	public Commento(String text, Utente author, Post post) {
+	public Commento(String text, Utente author, Post post, LocalDateTime data) {
 		this.text = text;
 		this.author = author;
 		this.post = post;
+		this.data = data;
 	}
 
 	public Integer getId() {
@@ -63,6 +67,14 @@ public class Commento {
 
 	public void setPost(Post post) {
 		this.post = post;
+	}
+
+	public LocalDateTime getData() {
+		return data;
+	}
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
 	}
 
 	@Override

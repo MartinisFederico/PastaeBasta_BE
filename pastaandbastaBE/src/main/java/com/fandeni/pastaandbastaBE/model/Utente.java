@@ -1,6 +1,7 @@
 package com.fandeni.pastaandbastaBE.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +19,8 @@ public class Utente {
 	private String email; 
 	private LocalDate dob; 
 	private String password; 
-	private String biografia; 
+	private String biografia;
+	private String didascalia;
 	@OneToMany(mappedBy = "author")
 	private List<Commento> commenti; 
 	@ManyToMany
@@ -32,7 +34,7 @@ public class Utente {
 	private Ruolo role;
 
 	public Utente(Integer id, String nome, String cognome, String username, String email, LocalDate dob,
-			String password, String biografia, Ruolo role) {
+			String password, String biografia, Ruolo role, String didascalia) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -43,12 +45,16 @@ public class Utente {
 		this.password = password;
 		this.biografia = biografia;
 		this.role = role;
+		this.didascalia = didascalia;
+		commenti = new ArrayList<>();
+		like = new ArrayList<>();
+		unlike = new ArrayList<>();
 	} 
 	
 	public Utente() {}
 	
 	public Utente(String nome, String cognome, String username, String email, LocalDate dob,
-			String password, String biografia, Ruolo role) {
+			String password, String biografia, Ruolo role, String didascalia) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.username = username;
@@ -57,6 +63,10 @@ public class Utente {
 		this.password = password;
 		this.biografia = biografia;
 		this.role = role;
+		this.didascalia = didascalia;
+		commenti = new ArrayList<>();
+		like = new ArrayList<>();
+		unlike = new ArrayList<>();
 	}
 
 	public Integer getId() {
@@ -123,8 +133,40 @@ public class Utente {
 		return role;
 	}
 
-	public void setAdmin(Ruolo role) {
+	public void setRole(Ruolo role) {
 		this.role = role;
+	}
+
+	public String getDidascalia() {
+		return didascalia;
+	}
+
+	public void setDidascalia(String didascalia) {
+		this.didascalia = didascalia;
+	}
+
+	public List<Commento> getCommenti() {
+		return commenti;
+	}
+
+	public void setCommenti(List<Commento> commenti) {
+		this.commenti = commenti;
+	}
+
+	public List<Post> getLike() {
+		return like;
+	}
+
+	public void setLike(List<Post> like) {
+		this.like = like;
+	}
+
+	public List<Post> getUnlike() {
+		return unlike;
+	}
+
+	public void setUnlike(List<Post> unlike) {
+		this.unlike = unlike;
 	}
 
 	@Override
@@ -144,7 +186,7 @@ public class Utente {
 	public String toString() {
 		return "Utente [id=" + id + ", nome=" + nome + ", cognome=" + cognome + ", username=" + username + ", email="
 				+ email + ", dob=" + dob + ", password=" + password + ", biografia=" + biografia + ", ruolo=" + role
-				+ "]";
+				+ ", didascalia="+didascalia+"]";
 	}
 
 	

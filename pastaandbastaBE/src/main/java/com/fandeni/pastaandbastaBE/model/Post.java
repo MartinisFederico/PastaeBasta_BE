@@ -152,6 +152,22 @@ public class Post {
 		this.dataLastUpdate = dataLastUpdate;
 	}
 
+	public List<Categoria> getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(List<Categoria> categorie) {
+		this.categorie = categorie;
+	}
+
+	public List<Hashtag> getHashtags() {
+		return hashtags;
+	}
+
+	public void setHashtags(List<Hashtag> hashtags) {
+		this.hashtags = hashtags;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

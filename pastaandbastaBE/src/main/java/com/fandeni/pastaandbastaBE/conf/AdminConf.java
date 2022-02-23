@@ -19,6 +19,6 @@ public class AdminConf {
     @Bean
     public Utente admin(){
         return new Utente(null, null, "admin", null, null,
-                PasswordUtils.encrypt("administrator"), null, r);
+                PasswordUtils.encrypt("administrator"), null, r, null);
     }
 }
