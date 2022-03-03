@@ -23,6 +23,7 @@ public class Post {
 	private String didascalia; 
 	private LocalDateTime dataPublish;
 	private LocalDateTime dataLastUpdate;
+	private String img;
 	@ManyToMany(mappedBy = "like")
 	private List<Utente> likers; 
 	@ManyToMany(mappedBy = "unlike")
@@ -41,7 +42,7 @@ public class Post {
 	private boolean visible;
 	
 	public Post(Integer id, String descrizione, String didascalia, LocalDateTime dataPublish,
-				LocalDateTime dataLastUpdate, Utente creator) {
+				LocalDateTime dataLastUpdate, Utente creator, String img) {
 		super();
 		this.id = id;
 		this.descrizione = descrizione;
@@ -53,12 +54,13 @@ public class Post {
 		this.creator = creator;
 		this.dataLastUpdate = dataLastUpdate;
 		visible = true;
+		this.img = img;
 	} 
 	
 	public Post() {}
 	
 	public Post(String descrizione, String didascalia, LocalDateTime dataPublish,
-				LocalDateTime dataLastUpdate, Utente creator) {
+				LocalDateTime dataLastUpdate, Utente creator, String img) {
 		this.descrizione = descrizione;
 		this.didascalia = didascalia; 
 		this.dataPublish = dataPublish;
@@ -68,6 +70,7 @@ public class Post {
 		this.creator = creator;
 		this.dataLastUpdate = dataLastUpdate;
 		visible = true;
+		this.img = img;
 	}
 
 	public Integer getId() {
@@ -176,6 +179,14 @@ public class Post {
 
 	public void setVisible(boolean visible) {
 		this.visible = visible;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 	@Override

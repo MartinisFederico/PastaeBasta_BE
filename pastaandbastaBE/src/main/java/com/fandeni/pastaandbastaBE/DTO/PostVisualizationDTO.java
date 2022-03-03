@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PostVisualizationDTO {
+    private Integer idPost;
     private String usernameCreator;
     private String profileImg;
     private String imgPost;
@@ -24,6 +25,7 @@ public class PostVisualizationDTO {
     private List<String> hashtags;
 
     public PostVisualizationDTO(Post post){
+        idPost = post.getId();
         usernameCreator = post.getCreator().getUsername();
         profileImg = post.getCreator().getDidascalia();
         imgPost = post.getDidascalia();
@@ -45,6 +47,14 @@ public class PostVisualizationDTO {
         for (Commento c: post.getComments()) {
             comments.add(new CommentDTO(c.getText(), c.getAuthor().getUsername(), c.getAuthor().getDidascalia(), c.getData()));
         }
+    }
+
+    public Integer getIdPost() {
+        return idPost;
+    }
+
+    public void setIdPost(Integer idPost) {
+        this.idPost = idPost;
     }
 
     public String getUsernameCreator() {
@@ -150,6 +160,7 @@ public class PostVisualizationDTO {
     @Override
     public String toString() {
         return "PostVisualizationDTO{" +
+                "idPost" + idPost +
                 "usernameCreator='" + usernameCreator + '\'' +
                 ", profileImg='" + profileImg + '\'' +
                 ", imgPost='" + imgPost + '\'' +

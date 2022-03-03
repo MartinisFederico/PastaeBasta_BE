@@ -8,13 +8,23 @@ public class PostDTO {
     private String descrizione;
     private String didascalia;
     private List<String> categorie;
+    private String img;
 
-    public PostDTO(AuthDTO user, String title, String descrizione, String didascalia, List<String> categorie) {
+    public PostDTO(AuthDTO user, String title, String descrizione, String didascalia, List<String> categorie, String img) {
         this.user = user;
         this.title = title;
         this.descrizione = descrizione;
         this.didascalia = didascalia;
         this.categorie = categorie;
+        this.img = img;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public AuthDTO getUser() {
