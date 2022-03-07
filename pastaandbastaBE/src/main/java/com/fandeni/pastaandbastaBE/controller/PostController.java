@@ -2,6 +2,7 @@ package com.fandeni.pastaandbastaBE.controller;
 
 import com.fandeni.pastaandbastaBE.DTO.*;
 import com.fandeni.pastaandbastaBE.customException.CategoriaNotFoundException;
+import com.fandeni.pastaandbastaBE.customException.LikeException;
 import com.fandeni.pastaandbastaBE.customException.PostNotFoundException;
 import com.fandeni.pastaandbastaBE.customException.ReactionDoesntExistsException;
 import com.fandeni.pastaandbastaBE.service.PostService;
@@ -106,10 +107,10 @@ public class PostController {
                 return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             postService.react(reaction);
             return new ResponseEntity<>(true, HttpStatus.OK);
-        }catch (ReactionDoesntExistsException exception){
+        }catch (ReactionDoesntExistsException | LikeException exception){
             exception.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-        }catch (Exception e){
+        } catch (Exception e){
             e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

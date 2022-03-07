@@ -2,11 +2,13 @@ package com.fandeni.pastaandbastaBE.service;
 
 import com.fandeni.pastaandbastaBE.DTO.*;
 import com.fandeni.pastaandbastaBE.customException.CategoriaNotFoundException;
+import com.fandeni.pastaandbastaBE.customException.LikeException;
 import com.fandeni.pastaandbastaBE.customException.PostNotFoundException;
 import com.fandeni.pastaandbastaBE.customException.ReactionDoesntExistsException;
 import com.fandeni.pastaandbastaBE.model.Categoria;
 import com.fandeni.pastaandbastaBE.model.Hashtag;
 import com.fandeni.pastaandbastaBE.model.Post;
+import com.fandeni.pastaandbastaBE.model.Utente;
 import com.fandeni.pastaandbastaBE.repository.CategoriaCrudRepository;
 import com.fandeni.pastaandbastaBE.repository.HashtagCrudRepository;
 import com.fandeni.pastaandbastaBE.repository.UtenteCrudRepository;
@@ -153,22 +155,33 @@ public class PostService {
 		}
 	}
 
-	public void react(ReactionDTO reaction) throws ReactionDoesntExistsException {
+	public void react(ReactionDTO reaction) throws ReactionDoesntExistsException, LikeException {
 		Optional<Post> p = postCrudRepository.findById(reaction.getIdPost());
 		if(p.isPresent()){
 			Post temp = p.get();
+			Utente user;
 			switch (reaction.getType()){
 				case "like":
-					temp.getLikers().add((reaction.getUser().getUsername().matches("^(.+)@(.+)$"))
+					user = (reaction.getUser().getUsername().matches("^(.+)@(.+)$"))
 							? utenteCrudRepository.findByEmail(reaction.getUser().getUsername()).get()
-							: utenteCrudRepository.findByUsername(reaction.getUser().getUsername()).get());
-					temp.setNumLike(temp.getNumLike()+1);
+							: utenteCrudRepository.findByUsername(reaction.getUser().getUsername()).get();
+					if(temp.getLikers().contains(user))
+						throw new LikeException("L'utente ha già messo like al post!");
+					else{
+						temp.getUnlikers().remove(user);
+						temp.getLikers().add(user);
+					}
 					break;
 				case "unlike":
-					temp.getUnlikers().add((reaction.getUser().getUsername().matches("^(.+)@(.+)$"))
+					user = (reaction.getUser().getUsername().matches("^(.+)@(.+)$"))
 							? utenteCrudRepository.findByEmail(reaction.getUser().getUsername()).get()
-							: utenteCrudRepository.findByUsername(reaction.getUser().getUsername()).get());
-					temp.setNumUnlike(temp.getNumUnlike()+1);
+							: utenteCrudRepository.findByUsername(reaction.getUser().getUsername()).get();
+					if(temp.getUnlikers().contains(user))
+						throw new LikeException("L'utente ha già messo unlike al post!");
+					else{
+						temp.getLikers().remove(user);
+						temp.getUnlikers().add(user);
+					}
 					break;
 				default:
 					throw new ReactionDoesntExistsException("Non esiste la reazione selezionata!");
